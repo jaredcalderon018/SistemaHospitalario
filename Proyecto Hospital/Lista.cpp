@@ -35,6 +35,22 @@ void Lista::agregar(Empleado* empleado)
 	if (empleado == nullptr)
 		return;
 	
+	Nodo* actual = primero;
+	
+	while (actual != nullptr)
+	{
+		// Evita agregar dos veces el mismo objeto
+		if (actual->obtenerEmpleado() == empleado)
+			return;
+		
+		// Evita empleados con identificaciones repetidas
+		if (actual->obtenerEmpleado()->obtenerIdentificacion()
+			== empleado->obtenerIdentificacion())
+			return;
+		
+		actual = actual->obtenerSiguiente();
+	}
+	
 	Nodo* nuevo = new Nodo(empleado);
 	
 	if (primero == nullptr)
@@ -43,7 +59,7 @@ void Lista::agregar(Empleado* empleado)
 	}
 	else
 	{
-		Nodo* actual = primero;
+		actual = primero;
 		
 		while (actual->obtenerSiguiente() != nullptr)
 		{
@@ -53,7 +69,6 @@ void Lista::agregar(Empleado* empleado)
 		actual->establecerSiguiente(nuevo);
 	}
 }
-
 // Buscar empleado por identificacion
 Empleado* Lista::buscar(string identificacion) const
 {
