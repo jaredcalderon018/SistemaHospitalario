@@ -3,116 +3,83 @@
 // Constructor
 Lista::Lista()
 {
-	primero = nullptr;
+	cabeza = NULL;
 }
 
-// Destructor
-Lista::~Lista()
+// Verificar si esta vacia
+bool Lista::estaVacia()
 {
-	Nodo* actual = primero;
-	
-	while (actual != nullptr)
-	{
-		Nodo* temporal = actual;
-		actual = actual->obtenerSiguiente();
-		
-		delete temporal->obtenerEmpleado();
-		delete temporal;
-	}
-	
-	primero = nullptr;
+	return cabeza == NULL;
 }
 
-// Comprobar si la lista esta vacia
-bool Lista::estaVacia() const
+// Agregar empleado al final de la lista
+void Lista::agregar(Empleado* emp)
 {
-	return primero == nullptr;
-}
-
-// Agregar empleado
-void Lista::agregar(Empleado* empleado)
-{
-	if (empleado == nullptr)
-		return;
+	Nodo* nuevo = new Nodo(emp);
 	
-	Nodo* actual = primero;
-	
-	while (actual != nullptr)
+	if (cabeza == NULL)
 	{
-		// Evita agregar dos veces el mismo objeto
-		if (actual->obtenerEmpleado() == empleado)
-			return;
-		
-		// Evita empleados con identificaciones repetidas
-		if (actual->obtenerEmpleado()->obtenerIdentificacion()
-			== empleado->obtenerIdentificacion())
-			return;
-		
-		actual = actual->obtenerSiguiente();
-	}
-	
-	Nodo* nuevo = new Nodo(empleado);
-	
-	if (primero == nullptr)
-	{
-		primero = nuevo;
+		cabeza = nuevo;
 	}
 	else
 	{
-		actual = primero;
+		Nodo* aux = cabeza;
 		
-		while (actual->obtenerSiguiente() != nullptr)
+		while (aux->obtenerSiguiente() != NULL)
 		{
-			actual = actual->obtenerSiguiente();
+			aux = aux->obtenerSiguiente();
 		}
 		
-		actual->establecerSiguiente(nuevo);
+		aux->establecerSiguiente(nuevo);
 	}
-}
-// Buscar empleado por identificacion
-Empleado* Lista::buscar(string identificacion) const
-{
-	Nodo* actual = primero;
-	
-	while (actual != nullptr)
-	{
-		if (actual->obtenerEmpleado()->obtenerIdentificacion()
-			== identificacion)
-		{
-			return actual->obtenerEmpleado();
-		}
-		
-		actual = actual->obtenerSiguiente();
-	}
-	
-	return nullptr;
 }
 
-// Eliminar empleado
-bool Lista::eliminar(string identificacion)
+// Buscar empleado por identificacion
+Empleado* Lista::buscar(string id)
 {
-	Nodo* actual = primero;
-	Nodo* anterior = nullptr;
+	Nodo* aux = cabeza;
 	
-	while (actual != nullptr)
+	while (aux != NULL)
 	{
-		if (actual->obtenerEmpleado()->obtenerIdentificacion()
-			== identificacion)
+		if (aux->obtenerEmpleado()->obtenerIdentificacion() == id)
 		{
-			if (anterior == nullptr)
-			{
-				primero = actual->obtenerSiguiente();
-			}
-			else
-			{
-				anterior->establecerSiguiente(
-											  actual->obtenerSiguiente()
-											  );
-			}
+			return aux->obtenerEmpleado();
+		}
+		
+		aux = aux->obtenerSiguiente();
+	}
+	
+	return NULL;
+}
+
+// Eliminar empleado por identificacion
+bool Lista::eliminar(string id)
+{
+	if (cabeza == NULL)
+	{
+		return false;
+	}
+	
+	// Caso especial: primer nodo
+	if (cabeza->obtenerEmpleado()->obtenerIdentificacion() == id)
+	{
+		Nodo* temp = cabeza;
+		cabeza = cabeza->obtenerSiguiente();
+		
+		delete temp;
+		return true;
+	}
+	
+	Nodo* anterior = cabeza;
+	Nodo* actual = cabeza->obtenerSiguiente();
+	
+	while (actual != NULL)
+	{
+		if (actual->obtenerEmpleado()->obtenerIdentificacion() == id)
+		{
+			anterior->establecerSiguiente(actual->obtenerSiguiente());
 			
-			delete actual->obtenerEmpleado();
 			delete actual;
-			
 			return true;
 		}
 		
@@ -123,8 +90,23 @@ bool Lista::eliminar(string identificacion)
 	return false;
 }
 
-// Obtener primer nodo
-Nodo* Lista::obtenerPrimero() const
+// Obtener cabeza
+Nodo* Lista::obtenerCabeza()
 {
-	return primero;
+	return cabeza;
+}
+
+// Destructor
+Lista::~Lista()
+{
+	Nodo* actual = cabeza;
+	
+	while (actual != NULL)
+	{
+		Nodo* siguiente = actual->obtenerSiguiente();
+		
+		delete actual;
+		
+		actual = siguiente;
+	}
 }

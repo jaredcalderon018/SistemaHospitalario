@@ -3,8 +3,7 @@
 
 #include "Empleado.h"
 
-class Nodo
-{
+class Nodo {
 private:
 	Empleado* empleado;
 	Nodo* siguiente;
@@ -12,10 +11,11 @@ private:
 public:
 	Nodo(Empleado* emp);
 	
-	Empleado* obtenerEmpleado() const;
-	Nodo* obtenerSiguiente() const;
+	Empleado* obtenerEmpleado();
+	Nodo* obtenerSiguiente();
 	
 	void establecerSiguiente(Nodo* sig);
 };
 
 #endif
+

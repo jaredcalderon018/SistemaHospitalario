@@ -6,27 +6,24 @@
 
 using namespace std;
 
-class Lista
-{
+class Lista {
 private:
-	Nodo* primero;
+	Nodo* cabeza;
 	
 public:
 	Lista();
+	
+	bool estaVacia();
+	
+	void agregar(Empleado* emp);
+	
+	Empleado* buscar(string id);
+	
+	bool eliminar(string id);
+	
+	Nodo* obtenerCabeza();
+	
 	~Lista();
-	
-	Lista(const Lista&) = delete;
-	Lista& operator=(const Lista&) = delete;
-	
-	bool estaVacia() const;
-	
-	void agregar(Empleado* empleado);
-	
-	Empleado* buscar(string identificacion) const;
-	
-	bool eliminar(string identificacion);
-	
-	Nodo* obtenerPrimero() const;
 };
 
 #endif

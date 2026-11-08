@@ -4,17 +4,17 @@
 Nodo::Nodo(Empleado* emp)
 {
 	empleado = emp;
-	siguiente = nullptr;
+	siguiente = NULL;
 }
 
 // Obtener empleado
-Empleado* Nodo::obtenerEmpleado() const
+Empleado* Nodo::obtenerEmpleado()
 {
 	return empleado;
 }
 
 // Obtener siguiente nodo
-Nodo* Nodo::obtenerSiguiente() const
+Nodo* Nodo::obtenerSiguiente()
 {
 	return siguiente;
 }
