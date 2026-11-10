@@ -10,4 +10,4 @@ Guia de uso por pasos
 7. pon un codigo para el departamento
 8. Asignar un nombre al departamento.
 9. Agregar puestos al departamento.El programa pregunta si se desea agregar un puesto al departamento. Si la respuesta es afirmativa, se debe ingresar el nombre del puesto.
-Listar departamentos. Finalmente, permite visualizar los departamentos registrados y los puestos disponibles en cada uno.
+10. Listar departamentos. Finalmente, permite visualizar los departamentos registrados y los puestos disponibles en cada uno.
